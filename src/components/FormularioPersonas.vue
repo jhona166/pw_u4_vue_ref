@@ -19,6 +19,10 @@
                 <button class="btn-C" @click="buscarPersona">Consultar</button>
               
                 <button class="btn-C" @click="guardarPersona">Guardar</button>
+                <button class="btn-C" @click="eliminarPersona">Eliminar</button>
+              
+                <button class="btn-C" @click="actualizarPersona">Actualizar</button>
+                <button class="btn-C" @click="actualizarParcialPersona">Actualizar Parcial</button>
             </div>
 
         </div>
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-import { obtenerPorIdFachada,insertarFachada } from '@/client/PersonaClient';
+import { obtenerPorIdFachada,insertarFachada,eliminarFachada,actualizarFachada,actualizarParcialFachada} from '@/client/PersonaClient';
 
 export default {
     data(){
@@ -58,6 +62,27 @@ export default {
                 fechaNacimiento: this.persona.fechaNacimiento,
             }; 
             await insertarFachada(bodyPersona);
+            alert(`Persona insertada exitosamente:
+                -Nombre:${this.nombre}
+                -Apellido:${this.apellido}
+                -Fecha Nacimiento:${this.fechaNacimiento}
+            `);
+
+
+        },
+        async eliminarPersona() {
+            await eliminarFachada(this.persona.id);
+        },
+        async actualizarPersona(){
+            await actualizarFachada(this.persona.id);
+        },
+        async actualizarParcialPersona(){
+            const bodyPersona = {};
+            if (this.nombre) bodyPersona.nombre = this.nombre;
+    
+
+    await actualizarParcialFachada(this.persona.id, bodyPersona);
+    alert("Persona actualizada exitosamente");
         }
 
     }, 
