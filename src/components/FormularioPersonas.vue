@@ -53,13 +53,15 @@ export default {
             console.log('Persona', persona);
             this.persona.nombre = persona.nombre;
             this.persona.apellido = persona.apellido;
-            this.persona.fechaNacimiento = persona.fechaNacimiento;
+            this.persona.fechaNacimiento = persona.fechaNacimiento.split("T")[0];
+            //this.fecha = data.fechaNacimiento.split("T")[0]; // Extrae solo YYYY-MM-DD
         },
         async guardarPersona(){
             const bodyPersona = {
                 nombre: this.persona.nombre,
                 apellido: this.persona.apellido,
-                fechaNacimiento: this.persona.fechaNacimiento,
+                
+                fechaNacimiento: this.persona.fechaNacimiento+"T00:00:00",
             }; 
             await insertarFachada(bodyPersona);
             alert(`Persona insertada exitosamente:
